@@ -1,0 +1,34 @@
+to use an djando app by a third party app, it needs an api to communicate
+as django apps are completely integrated with front -bavkend, if we want to use someother frontend we can use django api related to our django app to communicate with front end like react or vue
+
+
+1> first create a basic django app with models
+2> create an api app for the basic django app created above, using django rest framework
+add rest_framework app in installed app of settings.py
+    genericsapiviews can fetch data from database but to display them on web we need to serialize and convert the python objects to json representation usin serializers
+
+    if images are part of model a media folder needs to be created and its url and root should be part of urls.py of main project folder and not app to properly function.  also add media_root and media_url in settings.py. pillow module also need to install.
+
+
+3> for two apps to interact that are on different domain or different ports, a module called django-cors-headers is needed
+    add 'corsheaders' in installed app of settings.py, it is also a middleware so add it in middleware
+    "corsheaders.middleware.CorsMiddleware" <-- this will allow resource sharimg between two apps
+    also add the whitelist path for corsheaders:
+        CORS_ORIGIN_WHITELIST=['http://localhost:8000', 'http://localhost:3000']    <--ADD THE ADDRESS OR DOMAIN/URL
+    port '3000' is for react app
+
+4>create an front end to consume the created django api
+    react frontend app:
+        install node.js from its website
+        create a project folder for react out of django project, and cd to it
+        
+        to create react app it will create the boiler plate code and project directories:
+            
+            >>>npx create-react-app app_name
+            
+            >>>cd app_name
+            
+            #this will start react server
+            >>>npm start
+            
+inside# myapp/src/app.js
